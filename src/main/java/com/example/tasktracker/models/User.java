@@ -1,5 +1,6 @@
 package com.example.tasktracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -37,6 +39,10 @@ public class User
             name="users_roles",
             joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+    @JsonIgnore
     private List<Role> roles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Enrollment> enrollments;
 }

@@ -1,5 +1,6 @@
 package com.example.tasktracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,5 +25,6 @@ public class Role
     private String name;
 
     @ManyToMany(mappedBy="roles")
+    @JsonIgnore
     private List<User> users;
 }

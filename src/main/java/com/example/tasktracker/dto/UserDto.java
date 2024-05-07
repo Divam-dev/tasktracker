@@ -1,5 +1,6 @@
 package com.example.tasktracker.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDto
 {
+    @Schema(hidden = true)
     private Long id;
     @NotEmpty(message = "First name should not be empty")
     private String firstName;
