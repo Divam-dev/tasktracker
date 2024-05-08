@@ -19,5 +19,4 @@ public class EnrollmentId implements Serializable {
     private Long userId;
 
 
-    // Constructors, Getters and Setters
 }

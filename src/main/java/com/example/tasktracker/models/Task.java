@@ -37,6 +37,4 @@ public class Task {
     @JoinColumn(name = "userId")
     @JsonIgnore
     private User user;
-
-    // Getters and Setters
 }

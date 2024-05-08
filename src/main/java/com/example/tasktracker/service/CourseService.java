@@ -18,6 +18,9 @@ public class CourseService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TaskService taskService;
+
     public Course createCourse(CreateCourseRequest request) {
         if (request.courseName() == null || request.courseDescription().isEmpty()) {
             throw new IllegalArgumentException("Course name must not be empty");
@@ -36,5 +39,16 @@ public class CourseService {
         return courseRepository.findById(id);
     }
 
+
+    public boolean deleteCourse(Long courseId) {
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        if (courseOptional.isPresent()) {
+            Course course = courseOptional.get();
+            taskService.deleteTasksByCourse(course);
+            courseRepository.delete(course);
+            return true;
+        }
+        return false;
+    }
 }
 

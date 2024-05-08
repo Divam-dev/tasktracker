@@ -32,5 +32,5 @@ public class Enrollment implements Serializable {
     @JsonIgnore
     private User user;
 
-    // Constructors, Getters and Setters
+
 }
