@@ -30,23 +30,20 @@ public class SpringSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/api/auth/**").permitAll();
-                    authorize.requestMatchers("/register/**").permitAll();
-                    authorize.requestMatchers("/swagger-ui/**").permitAll();
-                    authorize.requestMatchers("/v3/**").permitAll();
-                    authorize.requestMatchers("/api/courses/join/**").permitAll();
-                    authorize.requestMatchers("/").permitAll();
-                    authorize.requestMatchers("/**").hasRole("TEACHER");
-                    //authorize.requestMatchers("/**").permitAll();
+                    authorize.requestMatchers("/", "/register/**", "/login", "/swagger-ui/**", "/v3/**").permitAll();
+                    authorize.requestMatchers("/tasks").authenticated(); // Ensure /tasks is accessible to authenticated users only
+                    authorize.anyRequest().hasRole("TEACHER"); // OtherRLs require TEACHER role
                 })
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .logout((logout) -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .permitAll()
+                        .logoutSuccessUrl("/")
                 );
 
         return http.build();

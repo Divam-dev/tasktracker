@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-  xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Електронний щоденник</title>
@@ -19,11 +17,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li class="nav-item" th:if="${!isAuthenticated}">
                     <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" th:if="${!isAuthenticated}">
                     <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0" th:if="${isAuthenticated}">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
                 </li>
             </ul>
         </div>
@@ -31,7 +34,34 @@
 </nav>
 <div class="container">
     <div class="row">
-        <h1 class="text-center"> Електронний щоденник </h1>
+        <h1 class="text-center">Електронний щоденник</h1>
+    </div>
+    <div class="row mt-5 d-flex justify-content-center" th:if="${isAuthenticated}">
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Мої курси</h5>
+                    <p class="card-text">Тут ви можете переглянути свої курси.</p>
+                    <a href="#" class="btn btn-primary">Переглянути курси</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Мої завдання</h5>
+                    <p class="card-text">Тут ви можете переглянути свої завдання.</p>
+                    <a th:href="@{/tasks}" class="btn btn-primary">Переглянути завдання</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 d-flex justify-content-center" th:if="${!isAuthenticated}">
+        <div class="col-md-8">
+            <div class="alert alert-info text-center" role="alert">
+                Увійдіть в аккаунт для перегляду завдань
+            </div>
+        </div>
     </div>
 </div>
 </body>
