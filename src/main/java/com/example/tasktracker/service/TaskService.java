@@ -34,7 +34,6 @@ public class TaskService {
         task.setDescription(request.description());
         task.setCategory(request.category());
         task.setStatus(request.status());
-        task.setDueDate(request.due_date());
         task.setDeadline(LocalDate.from(request.deadline()));
 
         Course courses = courseRepository.findById(request.course_id()).get();

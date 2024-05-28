@@ -22,8 +22,6 @@ public class Task {
 
     private LocalDate deadline;
 
-    private String dueDate;
-
     private String category;
 
     private String status;
