@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Мої завдання</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar-custom {
+            background-color: #212529;
+        }
+        .navbar-custom .navbar-brand {
+            color: white;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <span class="navbar-brand mx-auto">Мої завдання</span>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4" th:each="task : ${tasks}">
+            <div class="card task-card">
+                <div class="card-body">
+                    <h5 class="card-title text-center" th:text="${task.title}">Task Title</h5>
+                    <p class="card-text"><strong>Опис:</strong> <span th:text="${task.description}">Task Description</span></p>
+                    <p class="card-text"><strong>Дедлайн:</strong> <span th:text="${task.deadline}">Task Deadline</span></p>
+                    <p class="card-text"><strong>Тип:</strong> <span th:text="${task.category}">Task Priority</span></p>
+                    <p class="card-text"><strong>Статус:</strong> <span th:text="${task.status}">Task Status</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

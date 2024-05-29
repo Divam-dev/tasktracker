@@ -1,9 +1,12 @@
 package com.example.tasktracker.controller;
 
 import com.example.tasktracker.dto.UserDto;
+import com.example.tasktracker.models.Task;
 import com.example.tasktracker.models.User;
+import com.example.tasktracker.service.TaskService;
 import com.example.tasktracker.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,10 +16,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class AuthController {
 
+    @Autowired
     private UserService userService;
+
+    @Autowired
+    private TaskService taskService;
 
     public AuthController(UserService userService) {
         this.userService = userService;
@@ -63,4 +72,19 @@ public class AuthController {
         userService.saveUser(user);
         return "redirect:/register?success";
     }
+
+    @GetMapping("/tasks")
+    public String showUserTasks(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        User user = userService.findByEmail(email);
+        Long userId = user.getId();
+
+        List<Task> tasks = taskService.findAllTasksByUserId(userId);
+        model.addAttribute("tasks", tasks);
+
+        return "tasks";
+    }
+
 }
