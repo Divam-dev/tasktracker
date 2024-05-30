@@ -65,4 +65,15 @@ public class CourseApiController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/{courseId}")
+    public ResponseEntity<Course> getCourseById(@PathVariable Long courseId) {
+        Optional<Course> course = courseService.getCourseById(courseId);
+        if (course.isPresent()) {
+            return ResponseEntity.ok(course.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
