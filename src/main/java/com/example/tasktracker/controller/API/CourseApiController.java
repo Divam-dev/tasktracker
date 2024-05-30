@@ -11,8 +11,10 @@ import com.example.tasktracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -76,4 +78,9 @@ public class CourseApiController {
         }
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Course>> getCoursesByUserId(@PathVariable Long userId) {
+        List<Course> courses = courseService.getCoursesByUserId(userId);
+        return ResponseEntity.ok(courses);
+    }
 }

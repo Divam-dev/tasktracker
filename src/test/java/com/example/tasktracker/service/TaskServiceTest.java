@@ -58,8 +58,7 @@ class TaskServiceTest {
                 "Test Task",
                 "This is a test task",
                 "Work",
-                LocalDateTime.now().plusDays(7),
-                "01.05.2024",
+                LocalDateTime.now().plusDays(1),
                 "Active",
                 1L,
                 1L
@@ -79,7 +78,6 @@ class TaskServiceTest {
         assertEquals(createTaskRequest.description(), createdTask.getDescription());
         assertEquals(createTaskRequest.category(), createdTask.getCategory());
         assertEquals(createTaskRequest.status(), createdTask.getStatus());
-        assertEquals(createTaskRequest.due_date(), createdTask.getDueDate());
         assertEquals(course, createdTask.getCourse());
         assertEquals(user, createdTask.getUser());
     }

@@ -1,8 +1,10 @@
 package com.example.tasktracker.controller;
 
 import com.example.tasktracker.dto.UserDto;
+import com.example.tasktracker.models.Course;
 import com.example.tasktracker.models.Task;
 import com.example.tasktracker.models.User;
+import com.example.tasktracker.service.CourseService;
 import com.example.tasktracker.service.TaskService;
 import com.example.tasktracker.service.UserService;
 import jakarta.validation.Valid;
@@ -26,6 +28,9 @@ public class AuthController {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private CourseService courseService;
 
     public AuthController(UserService userService) {
         this.userService = userService;
@@ -87,4 +92,17 @@ public class AuthController {
         return "tasks";
     }
 
+    @GetMapping("/courses")
+    public String getCourses(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        User user = userService.findByEmail(email);
+        Long userId = user.getId();
+
+        List<Course> courses = courseService.getCoursesByUserId(userId);
+        model.addAttribute("courses", courses);
+
+        return "courses";
+    }
 }

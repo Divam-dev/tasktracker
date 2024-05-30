@@ -31,8 +31,8 @@ public class SpringSecurity {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) -> {
                     authorize.requestMatchers("/", "/register/**", "/login", "/swagger-ui/**", "/v3/**").permitAll();
-                    authorize.requestMatchers("/tasks").authenticated(); // Ensure /tasks is accessible to authenticated users only
-                    authorize.anyRequest().hasRole("TEACHER"); // OtherRLs require TEACHER role
+                    authorize.requestMatchers("/tasks", "/courses/**").authenticated();
+                    authorize.anyRequest().hasRole("TEACHER");
                 })
                 .formLogin((form) -> form
                         .loginPage("/login")

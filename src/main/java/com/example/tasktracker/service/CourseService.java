@@ -2,13 +2,17 @@ package com.example.tasktracker.service;
 
 import com.example.tasktracker.models.Course;
 import com.example.tasktracker.models.User;
+import com.example.tasktracker.models.Enrollment;
 import com.example.tasktracker.repository.CourseRepository;
+import com.example.tasktracker.repository.EnrollmentRepository;
 import com.example.tasktracker.repository.UserRepository;
 import com.example.tasktracker.requests.CreateCourseRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseService {
@@ -17,6 +21,8 @@ public class CourseService {
     private CourseRepository courseRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EnrollmentRepository enrollmentRepository;
 
     @Autowired
     private TaskService taskService;
@@ -49,6 +55,15 @@ public class CourseService {
             return true;
         }
         return false;
+    }
+
+    public List<Course> getCoursesByUserId(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        List<Enrollment> enrollments = enrollmentRepository.findByUser(user);
+        System.out.println("Enrollments for user " + userId + ": " + enrollments);
+        return enrollments.stream()
+                .map(Enrollment::getCourse)
+                .collect(Collectors.toList());
     }
 }
 

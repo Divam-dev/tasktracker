@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Мої завдання</title>
+    <title>My Courses</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .navbar-custom {
@@ -17,20 +17,18 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-custom">
     <div class="container">
-        <span class="navbar-brand mx-auto">Мої завдання</span>
+        <span class="navbar-brand mx-auto">My Courses</span>
     </div>
 </nav>
 
 <div class="container mt-4">
     <div class="row">
-        <div class="col-md-4" th:each="task : ${tasks}">
-            <div class="card task-card">
+        <div class="col-md-6" th:each="course : ${courses}">
+            <div class="card course-card">
                 <div class="card-body">
-                    <h5 class="card-title text-center" th:text="${task.title}">Task Title</h5>
-                    <p class="card-text"><strong>Опис:</strong> <span th:text="${task.description}">Task Description</span></p>
-                    <p class="card-text"><strong>Дедлайн:</strong> <span th:text="${task.deadline}">Task Deadline</span></p>
-                    <p class="card-text"><strong>Тип:</strong> <span th:text="${task.category}">Task Priority</span></p>
-                    <p class="card-text"><strong>Статус:</strong> <span th:text="${task.status}">Task Status</span></p>
+                    <h5 class="card-title text-center" th:text="${course.courseName}">Course Name</h5>
+                    <p class="card-text"><strong>Description:</strong> <span th:text="${course.courseDescription}">Course Description</span></p>
+                    <p class="card-text"><strong>Teacher:</strong> <span th:text="${course.teacher.name}">Teacher Name</span></p>
                 </div>
             </div>
         </div>
