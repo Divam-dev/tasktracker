@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>My Courses</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         .navbar-custom {
             background-color: #212529;
@@ -12,25 +13,26 @@
             color: white;
             margin: 0 auto;
         }
+        a.navbar-text { color: white; }
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-custom">
-    <div class="container">
-        <span class="navbar-brand mx-auto">My Courses</span>
+    <div class="container position-relative">
+        <a class="navbar-text" th:href="@{/}">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <span class="navbar-brand mx-auto">Мої курси</span>
     </div>
 </nav>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6" th:each="course : ${courses}">
-            <div class="card course-card">
-                <div class="card-body">
-                    <h5 class="card-title text-center" th:text="${course.courseName}">Course Name</h5>
-                    <p class="card-text"><strong>Description:</strong> <span th:text="${course.courseDescription}">Course Description</span></p>
-                    <p class="card-text"><strong>Teacher:</strong> <span th:text="${course.teacher.name}">Teacher Name</span></p>
-                </div>
-            </div>
+<div class="col-md-4" th:each="course : ${courses}">
+    <div class="card course-card">
+        <div class="card-body">
+            <h5 class="card-title text-center" th:text="${course.courseName}">Course Name</h5>
+            <p class="card-text"><strong>Опис:</strong> <span th:text="${course.courseDescription}">Course Description</span></p>
+            <p class="card-text"><strong>Викладач:</strong> <span th:text="${course.teacher.name}">Teacher Name</span></p>
+            <a th:href="@{/courses/{id}/tasks(id=${course.id})}" class="btn btn-primary">Переглянути завдання</a>
         </div>
     </div>
 </div>

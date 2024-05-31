@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Мої завдання</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         .navbar-custom {
             background-color: #212529;
@@ -12,11 +13,15 @@
             color: white;
             margin: 0 auto;
         }
+        a.navbar-text { color: white; }
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-custom">
-    <div class="container">
+    <div class="container position-relative">
+        <a class="navbar-text" th:href="@{/}">
+            <i class="fas fa-arrow-left"></i>
+        </a>
         <span class="navbar-brand mx-auto">Мої завдання</span>
     </div>
 </nav>
